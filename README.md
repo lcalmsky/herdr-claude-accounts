@@ -35,21 +35,37 @@ ln -s ~/.config/herdr-app/mods/claude-accounts/cca ~/.local/bin/cca
 
 ```sh
 cca                      # or: cca ls
+cca ls --json            # the same list as one line of JSON, for tidemark
 cca work -c              # continue this folder's latest conversation as work
 cca home --resume <id>   # resume a particular session as home
+cca use work             # start every new session under work
+cca current              # which account that is
 cca add staging          # create ~/.claude-accounts/staging, then cca staging to log in
 cca share staging        # link the shared history into an account made before sharing existed
 cca share --dry-run old  # what share would do, without changing anything
 ```
 
-`cca ls` prints a marker on the account of the current shell, the name, email, 5h and 7d usage (`↻HH:MM` is the reset time once a window is nearly spent), and the account with the most 5h headroom. It fits about 60 columns and colours only a terminal.
+`cca ls` prints a marker on the account of the current shell, the name, email, 5h and 7d usage (`↻HH:MM` is the reset time once a window is nearly spent), and the account with the most 5h headroom. It fits about 60 columns and colours only a terminal. `cca ls --json` prints the same list as one line, `{"current":"work","accounts":[{"name":"default","email":"me@example.com","five_hour":{"used":12.0,"resets_at":1793778000},"seven_day":{…},"updated_at":1793777782,"best":true}]}`: percentages and epoch seconds, a window past its reset read as 0 % with its reset time kept, `best` on the most 5h headroom, and `current` the global default below. It needs no terminal and prints valid JSON even with no usage files.
+
+### Default for new sessions
+
+`cca use <name>` makes one account the default for every Claude Code session started afterwards: a new shell's `claude`, a new Herdr tab, and tidemark's switch. It writes one name to `${XDG_STATE_HOME:-$HOME/.local/state}/herdr-tower/current`, and `cca current` prints it (`default` when the file is missing or unreadable or the account was removed). Sessions already running keep the account they started with.
+
+The default reaches a shell through a `claude` function, so add one line at the end of `~/.zshrc`:
+
+```sh
+[ -x "$HOME/.local/bin/cca" ] && eval "$("$HOME/.local/bin/cca" shell-init)"
+```
+
+`cca shell-init` prints that function for zsh, bash and sh. With `CLAUDE_CONFIG_DIR` and `CCA_ACCOUNT` both unset it reads the file with the shell's builtin `read` — it starts no process on every `claude` — and, if the name is an existing non-default account, runs `claude` with `CLAUDE_CONFIG_DIR="$HOME/.claude-accounts/<name>"`; otherwise it runs the real `claude` unchanged. An explicit choice wins: `cca <name>` and the popup's account and resume rows export `CCA_ACCOUNT` (including `default`, where `CLAUDE_CONFIG_DIR` stays unset), so the hook leaves them alone. Herdr starts agents in your interactive shell, so a new tab running `claude` goes through the function.
 
 ## Before adding it
 
 The mod runs programs and reads files outside its own folder:
 
-- every 30 s, and when the focused agent changes, it runs `cca --porcelain <pid>`. That reads the focused Claude process's environment with `ps -E -ww -p <pid> -o command=` for its `CLAUDE_CONFIG_DIR`, reads the signed-in email from `~/.claude.json` and `~/.claude-accounts/*/.claude.json`, reads usage files under `${XDG_STATE_HOME:-$HOME/.local/state}/herdr-tower/usage/`, and reads `$HOME/.claude/sessions/<pid>.json` for the focused session's `sessionId` and `cwd`;
-- choosing an account runs `claude` in a new tab with `CLAUDE_CONFIG_DIR` set to that folder (for `default`, unset);
+- every 30 s, and when the focused agent changes, it runs `cca --porcelain <pid>`. That reads the focused Claude process's environment with `ps -E -ww -p <pid> -o command=` for its `CLAUDE_CONFIG_DIR`, reads the global default from `${XDG_STATE_HOME:-$HOME/.local/state}/herdr-tower/current`, reads the signed-in email from `~/.claude.json` and `~/.claude-accounts/*/.claude.json`, reads usage files under `${XDG_STATE_HOME:-$HOME/.local/state}/herdr-tower/usage/`, and reads `$HOME/.claude/sessions/<pid>.json` for the focused session's `sessionId` and `cwd`;
+- choosing an account runs `claude` in a new tab with `CLAUDE_CONFIG_DIR` set to that account's folder (for `default`, unset) and `CCA_ACCOUNT` set to its name;
+- `cca use <name>` writes one name into `${XDG_STATE_HOME:-$HOME/.local/state}/herdr-tower/current` — the only thing it writes outside the account folders — and `cca shell-init`'s `claude` function reads that file on every call;
 - **Add account** creates `~/.claude-accounts/<name>/` and symlinks everything in `~/.claude` into it except the login and per-process state, so settings, `CLAUDE.md`, skills and hooks are shared. It also creates `projects`, `sessions`, `history.jsonl` and the other shared history entries under `~/.claude` when missing, and links them;
 - **share** merges an existing account's real history entries into `~/.claude` (`cp -Rn`; `history.jsonl` appended), moves the account's copy aside to `<entry>.pre-share-<epoch>`, then links it. It never deletes and never overwrites anything in `~/.claude`.
 
