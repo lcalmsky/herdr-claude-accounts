@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<!-- Sample-data rebuild of the claude-accounts mod: the chip in a head bar and its open popup.
-     Sizes and colors follow mods/claude-accounts/main.js; the accounts and terminals are made up. -->
+<!-- Sample-data rebuild of the claude-accounts mod: the chip in a head bar, its open popup, and a
+     64 px rail fragment. Sizes and colors follow mods/claude-accounts/main.js; the accounts and
+     terminals are made up. -->
 <html><head><meta charset="utf-8">
 <style>
 @font-face{font-family:Nunito;src:url("../mods/claude-accounts/fonts/Nunito-SemiBold.ttf");font-weight:600}
@@ -16,39 +17,39 @@ html,body{background:#000}
 .chip .av{width:20px;height:20px;border-radius:10px;background:#1a1e28;display:flex;align-items:center;justify-content:center;font:700 11px Nunito;color:#eef0f5}
 .chip .nm{font:600 13px Nunito;color:#eef0f5}
 .chip .cv{font:400 10px Nunito;color:#7a8296;font-style:normal}
-#body{height:908px;padding:8px}
-.pane{height:100%;border-radius:10px;border:1px solid #1d212b;background:#0b0d14;display:flex;flex-direction:column;overflow:hidden}
+#body{height:908px;padding:8px;display:flex;gap:8px}
+#rail{width:64px;flex:none;border-radius:10px;background:#07080d;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;padding-bottom:8px}
+.pane{flex:1;min-width:0;height:100%;border-radius:10px;border:1px solid #1d212b;background:#0b0d14;display:flex;flex-direction:column;overflow:hidden}
 .ph{height:30px;flex:none;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;border-bottom:1px solid #1d212b}
 .ph b{font-weight:500}.ph span{color:#7a8296}
 .term{flex:1;padding:14px 16px;font:400 12px/19px 'SF Mono',Menlo,monospace;color:#d9dbe3;white-space:pre}
 .term .u{color:#eef0f5;background:#1a1e28;display:block;margin:0 -16px;padding:0 16px}
 .term .w{color:#eef0f5;font-weight:700}.term .m{color:#7a8296}.term .b{color:#5b9cf5}.term .a{color:#f2a93b}
-#popup{position:absolute;right:20px;top:52px;width:260px;background:#11141c;border:1px solid #1d212b;border-radius:10px;
-  box-shadow:0 18px 48px #000000a8;padding:5px;z-index:4}
-.sect{height:18px;padding:0 8px;display:flex;align-items:center;font:700 10px Nunito;color:#7a8296}
-.sect.semi{font-weight:600}
-.acct{height:38px;padding:0 8px;border-radius:6px;display:flex;flex-direction:column;justify-content:center;gap:1px}
+#popup{position:absolute;right:20px;top:52px;width:300px;height:256px;background:#11141c;border:1px solid #1d212b;border-radius:10px;
+  box-shadow:0 18px 48px #000000a8;padding:6px;z-index:4}
+.sect{height:24px;padding:0 8px;display:flex;align-items:center;font:600 11px Nunito;color:#7a8296}
+.acct{height:44px;padding:0 8px;border-radius:8px;display:flex;align-items:center;gap:8px}
 .acct:hover{background:#161a24}
-.dn{flex:none;margin-left:36px;font:10px "Geist Mono",ui-monospace,monospace;color:#7a8296}
-.l1{height:18px;display:flex;align-items:center;gap:8px;min-width:0}
-.l1 .ck{width:10px;flex:none;font:400 11px Nunito;color:#f2a93b}
-.av{width:18px;height:18px;flex:none;border-radius:9px;background:#1a1e28;display:flex;align-items:center;justify-content:center;font:700 9px Nunito;color:#eef0f5}
-.av.sm{width:16px;height:16px;border-radius:8px;font-size:8px}
-.nm{flex:none;font:600 12px Nunito;color:#eef0f5}
-.dot{width:5px;height:5px;flex:none;border-radius:3px;background:#f2a93b}
-.mail{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font:400 10.5px 'SF Mono',Menlo,monospace;color:#7a8296}
-.l2{height:18px;display:flex;align-items:center;justify-content:flex-end;gap:0;font:400 10.5px 'SF Mono',Menlo,monospace;color:#7a8296}
-.l2 .sep{padding:0 2px}
-.div{height:1px;margin:4px 2px;background:#1d212b}
-.res{height:26px;padding:0 8px;border-radius:6px;display:flex;align-items:center;gap:8px}
+.rcol{width:14px;flex:none;display:flex;justify-content:center}
+.radio{width:12px;height:12px;border-radius:6px;border:1.5px solid #3a404e;display:flex;align-items:center;justify-content:center}
+.radio.on{border-color:#f2a93b}
+.radio.on i{width:6px;height:6px;border-radius:3px;background:#f2a93b}
+.av{width:20px;height:20px;flex:none;border-radius:10px;background:#1a1e28;display:flex;align-items:center;justify-content:center;font:700 10px Nunito;color:#eef0f5}
+.txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.l1{display:flex;align-items:center;gap:8px;min-width:0}
+.nm{flex:none;font:700 13px Nunito;color:#eef0f5}
+.tag{flex:none;font:400 10px "Geist Mono",ui-monospace,monospace;color:#7a8296}
+.mail{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 11px "Geist Mono",ui-monospace,monospace;color:#7a8296}
+.usage{flex:none;display:flex;align-items:center;font:400 10.5px "Geist Mono",ui-monospace,monospace;color:#7a8296}
+.usage .sep{padding:0 2px}
+.usage .red{color:#e5484d}
+.div{height:1px;margin:6px 2px;background:#1d212b}
+.res{height:32px;padding:0 8px;border-radius:8px;display:flex;align-items:center;gap:8px}
 .res:hover{background:#161a24}
-.res .sp{width:10px;flex:none}
-.res .rn{font:600 12px Nunito;color:#a3a9b8}
-.res .rr{margin-left:auto;font:400 10px 'SF Mono',Menlo,monospace;color:#7a8296}
-.add{height:30px;padding:0 8px;border-radius:6px;display:flex;align-items:center;gap:8px}
+.res .rn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 13px Nunito;color:#a3a9b8}
+.res .rr{flex:none;font:400 11px "Geist Mono",ui-monospace,monospace;color:#7a8296}
+.add{height:32px;padding:0 8px 0 30px;border-radius:8px;display:flex;align-items:center}
 .add:hover{background:#161a24}
-.add .sp{width:10px;flex:none}
 .add .at{font:600 12px Nunito;color:#a3a9b8}
 </style></head><body>
 <div id="win">
@@ -57,9 +58,27 @@ html,body{background:#000}
     <div style="flex:1"></div>
     <div class="chip"><i class="av">W</i><b class="nm">work</b><i class="cv">▾</i></div>
   </div>
-  <div id="body"><div class="pane">
-    <div class="ph"><b>Claude Code</b><span>~/code/acme-shop</span></div>
-    <div class="term"><span class="u">❯ Switch the retry policy to exponential backoff and run the tests.</span>
+  <div id="body">
+    <div id="rail">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.5" fill="none" stroke="#343a48" stroke-width="3"/>
+        <circle cx="20" cy="20" r="14" fill="none" stroke="#343a48" stroke-width="3"/>
+        <path d="M20 6 A14 14 0 1 1 18.2452 6.1105" fill="none" stroke="#e5484d" stroke-width="3"/>
+        <circle cx="20" cy="20" r="10.5" fill="#1a1e28"/>
+        <text x="20" y="20" text-anchor="middle" dominant-baseline="central" font-family="Nunito" font-size="11" font-weight="600" fill="#7a8296">W</text>
+      </svg>
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.5" fill="none" stroke="#343a48" stroke-width="3"/>
+        <circle cx="20" cy="20" r="14" fill="none" stroke="#343a48" stroke-width="3"/>
+        <path d="M20 1.5 A18.5 18.5 0 0 1 38.4635 18.8384" fill="none" stroke="#a3a9b8" stroke-width="3"/>
+        <path d="M20 6 A14 14 0 0 1 28.9239 9.2129" fill="none" stroke="#a3a9b8" stroke-width="3"/>
+        <circle cx="20" cy="20" r="10.5" fill="#1a1e28"/>
+        <text x="20" y="20" text-anchor="middle" dominant-baseline="central" font-family="Nunito" font-size="11" font-weight="600" fill="#eef0f5">P</text>
+      </svg>
+    </div>
+    <div class="pane">
+      <div class="ph"><b>Claude Code</b><span>~/code/acme-shop</span></div>
+      <div class="term"><span class="u">❯ Switch the retry policy to exponential backoff and run the tests.</span>
 <span class="w">●</span> Read(<span class="b">src/payments/webhook.ts</span>)
   <span class="m">⎿  Read 96 lines</span>
 
@@ -76,22 +95,34 @@ html,body{background:#000}
 
 <span class="m">──────────────────────────────────────────────────────</span>
 ❯ <span style="background:#f2a93b"> </span></div>
-  </div></div>
+    </div>
+  </div>
 
   <div id="popup">
-    <div class="sect">OPEN IN A NEW TAB</div>
+    <div class="sect">New sessions open as</div>
     <div class="acct">
-      <div class="l1"><span class="ck">✓</span><i class="av">W</i><b class="nm">work</b><span class="dot"></span><span class="mail">you@work.example</span></div>
-      <div class="l2"><span class="dn">default for new</span><span style="flex:1"></span><span>5h 12%</span><span class="sep"> · </span><span>7d 9%</span></div>
+      <span class="rcol"><span class="radio"></span></span>
+      <span class="av">W</span>
+      <span class="txt">
+        <span class="l1"><b class="nm">work</b><span class="tag">this pane</span></span>
+        <span class="mail">you@work.example</span>
+      </span>
+      <span class="usage">7d 98% ↻15:20</span>
     </div>
     <div class="acct">
-      <div class="l1"><span class="ck"></span><i class="av">H</i><b class="nm">home</b><span class="mail">you@home.example</span></div>
-      <div class="l2"><span>5h 41% ↻15:20</span><span class="sep"> · </span><span>7d 22%</span></div>
+      <span class="rcol"><span class="radio on"><i></i></span></span>
+      <span class="av">P</span>
+      <span class="txt">
+        <span class="l1"><b class="nm">personal</b></span>
+        <span class="mail">you@personal.example</span>
+      </span>
+      <span class="usage">5h 24%<span class="sep"> · </span>7d 11%</span>
     </div>
     <div class="div"></div>
-    <div class="sect semi">Continue this session as</div>
-    <div class="res"><span class="sp"></span><i class="av sm">H</i><span class="rn">home</span><span class="rr">resume</span></div>
-    <div class="add"><span class="sp"></span><span class="at">+ Add account…</span></div>
+    <div class="sect">Continue this session as</div>
+    <div class="res"><span class="rcol"></span><span class="av">P</span><span class="rn">personal</span><span class="rr">resume in pane</span></div>
+    <div class="div"></div>
+    <div class="add"><span class="at">+ Add account…</span></div>
   </div>
 </div>
 </body></html>
