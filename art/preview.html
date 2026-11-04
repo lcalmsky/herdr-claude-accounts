@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Sample-data rebuild of the claude-accounts mod: the chip in a head bar and its open popup.
+     Sizes and colors follow mods/claude-accounts/main.js; the accounts and terminals are made up. -->
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Nunito;src:url("../mods/claude-accounts/fonts/Nunito-SemiBold.ttf");font-weight:600}
+@font-face{font-family:Nunito;src:url("../mods/claude-accounts/fonts/Nunito-Bold.ttf");font-weight:700}
+@font-face{font-family:Nunito;src:url("../mods/claude-accounts/fonts/Nunito-Bold.ttf");font-weight:800}
+*{box-sizing:border-box;margin:0}
+html,body{background:#000}
+#win{width:1600px;height:960px;background:#0b0d14;font-family:Nunito,sans-serif;color:#eef0f5;position:relative;overflow:hidden}
+.lights{position:absolute;left:12px;top:16px;display:flex;gap:8px;z-index:5}.lights i{width:12px;height:12px;border-radius:6px}
+#head{height:44px;display:flex;align-items:center;gap:8px;padding:0 20px}
+#head b{font:700 15px Nunito}#head span{font:600 13px Nunito;color:#7a8296}
+.chip{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 3px;border-radius:13px;background:#11141c;border:1px solid #1d212b}
+.chip .av{width:20px;height:20px;border-radius:10px;background:#1a1e28;display:flex;align-items:center;justify-content:center;font:700 11px Nunito;color:#eef0f5}
+.chip .nm{font:600 13px Nunito;color:#eef0f5}
+.chip .cv{font:400 10px Nunito;color:#7a8296;font-style:normal}
+#body{height:908px;padding:8px}
+.pane{height:100%;border-radius:10px;border:1px solid #1d212b;background:#0b0d14;display:flex;flex-direction:column;overflow:hidden}
+.ph{height:30px;flex:none;display:flex;align-items:center;gap:8px;padding:0 12px;font-size:12px;border-bottom:1px solid #1d212b}
+.ph b{font-weight:500}.ph span{color:#7a8296}
+.term{flex:1;padding:14px 16px;font:400 12px/19px 'SF Mono',Menlo,monospace;color:#d9dbe3;white-space:pre}
+.term .u{color:#eef0f5;background:#1a1e28;display:block;margin:0 -16px;padding:0 16px}
+.term .w{color:#eef0f5;font-weight:700}.term .m{color:#7a8296}.term .b{color:#5b9cf5}.term .a{color:#f2a93b}
+#popup{position:absolute;right:20px;top:52px;width:260px;background:#11141c;border:1px solid #1d212b;border-radius:10px;
+  box-shadow:0 18px 48px #000000a8;padding:5px;z-index:4}
+.sect{height:18px;padding:0 8px;display:flex;align-items:center;font:700 10px Nunito;color:#7a8296}
+.sect.semi{font-weight:600}
+.acct{height:38px;padding:0 8px;border-radius:6px;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.acct:hover{background:#161a24}
+.l1{height:18px;display:flex;align-items:center;gap:8px;min-width:0}
+.l1 .ck{width:10px;flex:none;font:400 11px Nunito;color:#f2a93b}
+.av{width:18px;height:18px;flex:none;border-radius:9px;background:#1a1e28;display:flex;align-items:center;justify-content:center;font:700 9px Nunito;color:#eef0f5}
+.av.sm{width:16px;height:16px;border-radius:8px;font-size:8px}
+.nm{flex:none;font:600 12px Nunito;color:#eef0f5}
+.dot{width:5px;height:5px;flex:none;border-radius:3px;background:#f2a93b}
+.mail{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font:400 10.5px 'SF Mono',Menlo,monospace;color:#7a8296}
+.l2{height:18px;display:flex;align-items:center;justify-content:flex-end;gap:0;font:400 10.5px 'SF Mono',Menlo,monospace;color:#7a8296}
+.l2 .sep{padding:0 2px}
+.div{height:1px;margin:4px 2px;background:#1d212b}
+.res{height:26px;padding:0 8px;border-radius:6px;display:flex;align-items:center;gap:8px}
+.res:hover{background:#161a24}
+.res .sp{width:10px;flex:none}
+.res .rn{font:600 12px Nunito;color:#a3a9b8}
+.res .rr{margin-left:auto;font:400 10px 'SF Mono',Menlo,monospace;color:#7a8296}
+.add{height:30px;padding:0 8px;border-radius:6px;display:flex;align-items:center;gap:8px}
+.add:hover{background:#161a24}
+.add .sp{width:10px;flex:none}
+.add .at{font:600 12px Nunito;color:#a3a9b8}
+</style></head><body>
+<div id="win">
+  <div id="head">
+    <b>acme-shop</b><span>12 aircraft · 4 runways</span>
+    <div style="flex:1"></div>
+    <div class="chip"><i class="av">W</i><b class="nm">work</b><i class="cv">▾</i></div>
+  </div>
+  <div id="body"><div class="pane">
+    <div class="ph"><b>Claude Code</b><span>~/code/acme-shop</span></div>
+    <div class="term"><span class="u">❯ Switch the retry policy to exponential backoff and run the tests.</span>
+<span class="w">●</span> Read(<span class="b">src/payments/webhook.ts</span>)
+  <span class="m">⎿  Read 96 lines</span>
+
+<span class="w">●</span> The retry loop sleeps a constant 1s and gives up after
+  three tries. I'll back off 1s, 2s, 4s and keep three tries.
+
+<span class="w">●</span> Update(<span class="b">src/payments/webhook.ts</span>)
+  <span class="m">⎿  Updated with 11 additions and 6 removals</span>
+
+<span class="w">●</span> Bash(<span class="b">pnpm test payments</span>)
+  <span class="m">⎿  36 passed, 0 failed</span>
+
+<span class="a">✻ Running… (12s · esc to interrupt)</span>
+
+<span class="m">──────────────────────────────────────────────────────</span>
+❯ <span style="background:#f2a93b"> </span></div>
+  </div></div>
+
+  <div id="popup">
+    <div class="sect">OPEN IN A NEW TAB</div>
+    <div class="acct">
+      <div class="l1"><span class="ck">✓</span><i class="av">W</i><b class="nm">work</b><span class="dot"></span><span class="mail">you@work.example</span></div>
+      <div class="l2"><span>5h 12%</span><span class="sep"> · </span><span>7d 9%</span></div>
+    </div>
+    <div class="acct">
+      <div class="l1"><span class="ck"></span><i class="av">H</i><b class="nm">home</b><span class="mail">you@home.example</span></div>
+      <div class="l2"><span>5h 41% ↻15:20</span><span class="sep"> · </span><span>7d 22%</span></div>
+    </div>
+    <div class="div"></div>
+    <div class="sect semi">Continue this session as</div>
+    <div class="res"><span class="sp"></span><i class="av sm">H</i><span class="rn">home</span><span class="rr">resume</span></div>
+    <div class="add"><span class="sp"></span><span class="at">+ Add account…</span></div>
+  </div>
+</div>
+</body></html>
