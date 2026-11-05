@@ -30,7 +30,7 @@ Or show every account at once with the `rail` role: one 40 px avatar per account
   "content": { "mod": "claude-accounts", "props": { "role": "rail" } } }
 ```
 
-Each avatar is two rings around a letter: the 5h window outside and the 7d window inside, each a full `#d4d7df` track filled clockwise from 12 o'clock in `#5b9cf5` (`#e5484d` from 90 %); the rings sit in fixed slots, so every avatar has the same outer edge, with the account's first letter on a `#1a1e28` disc in the middle — bright `#eef0f5` on the account new sessions open as, dim `#7a8296` on the others. The tooltip carries the label, both percentages and, from 90 %, the reset time; clicking opens the same popup as the chip. It sits at the bottom of a narrow column, 64 px wide for example.
+Each avatar is two rings around a letter: the 5h window outside and the 7d window inside, each a full `#c4c8d2` track filled clockwise from 12 o'clock in `#5b9cf5` (`#e5484d` from 90 %); the rings sit in fixed slots, so every avatar has the same outer edge, with the account's first letter on a `#1a1e28` disc in the middle — amber `#f2a93b` and moved to the top for the account of the focused Claude Code pane, otherwise bright `#eef0f5` on the account new sessions open as and dim `#7a8296` on the others. The tooltip carries the label, both percentages and, from 90 %, the reset time; clicking opens the same popup as the chip. It sits at the bottom of a narrow column, 64 px wide for example.
 
 With no chip in the layout, `ctrl-shift-a` still opens the accounts popup.
 
